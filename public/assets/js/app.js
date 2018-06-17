@@ -147,7 +147,6 @@ function editFactories(parentID) {
     
 }
 
-$("[data-hide]").on("click", function(){
-
+$("[data-hide]").on("click", function() {
     $(this).closest("." + $(this).attr("data-hide")).hide();
 });
