@@ -52,6 +52,7 @@ socket.on('getParents',function(result) {
                 </div>
               </div>
           
+            </div>
             </div>`
           
         $($parentRoot).append($parent);
