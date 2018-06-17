@@ -3,7 +3,7 @@
     color:rgb(255, 255, 255);
 }
 .searchBG {
-    background-color:rgb(15, 14, 26);
+    background-color:rgb(255, 255, 255);
 }
 .submitBG {
     background-color:#ffffff; 
@@ -16,25 +16,23 @@
     background-color:#ffffff; 
     color:rgb(0, 0, 0);
 }
-.iconDark {
-    color: #000000;
-}
 .greyBG {
     background-color: #ffffff;
 }
 ul {
-    position: relative
+    position: relative;
 }
 li {
     list-style: none;
+    display: inline-block;
 }
 svg{
     z-index: 1;
 }
-.popover-header {
-    text-align: center;
-}
 hr {
     border-color: #ffffff;
     width: 90%
+}
+.btn-info {
+    margin-right: 10px;
 }
