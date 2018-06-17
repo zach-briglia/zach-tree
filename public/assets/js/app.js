@@ -12,7 +12,7 @@ socket.on('getParents',function(result) {
 
         var $parent = `<div class="btn-group", role="group"><button id="button${result[i].parent_id}" data-id="${result[i].parent_id}" data-children="${result[i].children}" data-range-start="${result[i].parent_lower_bound}" data-range-end="${result[i].parent_upper_bound}" type="button" class="btn btn-parent parentBG d-block mb-2" data-toggle="modal" data-target="#editParentNameModal${result[i].parent_id}"><strong>${result[i].parent_name}</strong></button><button id="button${result[i].parent_id}" data-id="${result[i].parent_id}" data-children="${result[i].children}" data-range-start="${result[i].parent_lower_bound}" data-range-end="${result[i].parent_upper_bound}" type="button" class="btn btn-default d-block mb-2" data-toggle="modal" data-target="#editChildrenModal${result[i].parent_id}"><strong>&#x2261;</strong></button></div>
 
-        <div id="editParentNameModal${result[i].parent_id}" class="modal fade" role="dialog">
+        <div id="editParentNameModal${result[i].parent_id}" class="modal" role="dialog">
             <div class="modal-dialog">
           
               <!-- Modal content-->
@@ -34,7 +34,7 @@ socket.on('getParents',function(result) {
             </div>
           </div>
 
-          <div id="editChildrenModal${result[i].parent_id}" class="modal fade" role="dialog">
+          <div id="editChildrenModal${result[i].parent_id}" class="modal" role="dialog">
             <div class="modal-dialog">
           
               <!-- Modal content-->
@@ -47,8 +47,8 @@ socket.on('getParents',function(result) {
                     <div class="container mb-2"><div class="row"><input id="numChildren${result[i].parent_id}" required value="${result[i].children}" class="form-control input-md mb-3" type="number" min="0" max="15" placeholder="Number of factories"><div class="input-group mb-3"><div class="input-group-prepend"><span class="input-group-text parentBG">Range</span></div><input required id="rangeLowerBound${result[i].parent_id}" type="number" class="form-control" placeholder="Min" value="${result[i].parent_lower_bound}"><input required id="rangeUpperBound${result[i].parent_id}" type="number" class="form-control" placeholder="Max" value="${result[i].parent_upper_bound}"></div>
                 </div>
                 <div class="modal-footer">
-                    <button id="nodeSubmit" onClick="editFactories(${result[i].parent_id})" class="btn btn-success" data-dismiss="modal">submit</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+                    <button id="nodeSubmit" onClick="editFactories(${result[i].parent_id})" class="btn btn-success" data-dismiss="modal"><strong>submit</strong></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
                 </div>
               </div>
           
@@ -94,11 +94,6 @@ $("#addParentModal").on('click', "#parentSubmit", function()
         socket.emit("addParent", $newName);
     }
 
-});
-
-$("#editParentNameModal").on('click', '#editParentNameButton', function() {
-    var $editParentNameModal = $(editParentNameModal);
-    $editParentNameModal.modal('hide');
 });
 
 function deleteItem(parentID){
