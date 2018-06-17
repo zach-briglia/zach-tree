@@ -6,8 +6,11 @@ var conn;
 conn = mySQL.createConnection(process.env.CLEARDB_DATABASE_URL);
 
 conn.connect(function(err) {
-    if (err) throw err;
-    console.log("MYSQL connected")
+    if (err) {
+        console.error("error connecting: " + err.stack);
+        return;
+    }
+    console.log("connected as id " + connection.threadId);
 });
 
 module.exports = conn;
