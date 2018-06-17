@@ -1,6 +1,7 @@
 const socket = io();
 
 socket.emit("getParents");
+
 socket.on('getParents',function(result) {
 
     $parents = $('#parents');
@@ -17,7 +18,7 @@ socket.on('getParents',function(result) {
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">${result[i].parent_name} name</h4>
+                  <h4 class="modal-title"> edit${result[i].parent_name} name</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -26,7 +27,7 @@ socket.on('getParents',function(result) {
                 <div class="modal-footer">
                     <button id="editParentNameButton" class="btn btn-success my-1 mr-1" onclick="editParent(${result[i].parent_id})" data-dismiss="modal">save name</i></button>
                     <button onclick="deleteItem(${result[i].parent_id})" class="btn btn-warning node-delete my-1 mr-1" data-dismiss="modal">delete parent</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
                 </div>
               </div>
           
@@ -39,28 +40,27 @@ socket.on('getParents',function(result) {
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">${result[i].parent_name} factories</h4>
+                  <h4 class="modal-title">edit ${result[i].parent_name} factories</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="container mb-2"><div class="row"><input id="numChildren${result[i].parent_id}" required value="${result[i].children}" class="form-control input-md mb-3" type="number" min="0" max="15" placeholder="Number of Leaves"><div class="input-group mb-3"><div class="input-group-prepend"><span class="input-group-text parentBG">Range</span></div><input required id="rangeLowerBound${result[i].parent_id}" type="number" class="form-control" placeholder="Min" value="${result[i].parent_lower_bound}"><input required id="rangeUpperBound${result[i].parent_id}" type="number" class="form-control" placeholder="Max" value="${result[i].parent_upper_bound}"></div>
+                    <div class="container mb-2"><div class="row"><input id="numChildren${result[i].parent_id}" required value="${result[i].children}" class="form-control input-md mb-3" type="number" min="0" max="15" placeholder="Number of factories"><div class="input-group mb-3"><div class="input-group-prepend"><span class="input-group-text parentBG">Range</span></div><input required id="rangeLowerBound${result[i].parent_id}" type="number" class="form-control" placeholder="Min" value="${result[i].parent_lower_bound}"><input required id="rangeUpperBound${result[i].parent_id}" type="number" class="form-control" placeholder="Max" value="${result[i].parent_upper_bound}"></div>
                 </div>
                 <div class="modal-footer">
                     <button id="nodeSubmit" onClick="editFactories(${result[i].parent_id})" class="btn btn-success" data-dismiss="modal"><strong>submit</strong></button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
                 </div>
               </div>
           
-            </div>
-          </div>`
+            </div>`
           
         $($parentRoot).append($parent);
-        console.log(result[i])
+        //console.log(result[i])
         if (parseInt(result[i].children) !== null && parseInt(result[i].children) > 0) {
             //console.log(result[i].children)
             var $factoryParent = $(`<ul>`);
             var child = result[i].childrenData;
-            console.log(result[i].children)
+            //console.log(result[i].children)
             for(x = 0; x < child.length; x++){
                 //console.log(child[x])
 
@@ -75,13 +75,14 @@ socket.on('getParents',function(result) {
     $parents.append($parentRoot);
 });
 
-$("#addParentModal").on('click', "#parentSubmit", function(event){
-    event.preventDefault();
+$("#addParentModal").on('click', "#parentSubmit", function() 
+{
     var $inputNode = $("#inputRootItem");
     var $newName = $inputNode.val().trim();
     var $emptyParent = $("#emptyParent");
     var pattern = new RegExp(/^\w+$/);
-    isValidInput = pattern.test($newName)
+    isValidInput = pattern.test($newName);
+
     if ($newName === "") {
         $emptyParent.show();
     } else if (!isValidInput) {
@@ -91,22 +92,25 @@ $("#addParentModal").on('click', "#parentSubmit", function(event){
     } else {
         socket.emit("addParent", $newName);
     }
+
 });
 
 function deleteItem(parentID){
+    
     //console.log(parentID);
-    event.preventDefault();
     var id = parentID;
     //console.log(id);
     socket.emit('deleteParent',id);
 };
 
 function editParent(parentID) {
+
     var $editedName = document.getElementById("editParentName" + parentID).value;
     var $emptyParent = $("#emptyParent");
     var $invalidParent = $("#invalidParent");
     var pattern = new RegExp(/^\w+$/);
     isValidInput = pattern.test($editedName);
+
     if (!isValidInput) {
         $invalidParent.show();
     } else if ($editedName === ""){
@@ -120,15 +124,30 @@ function editParent(parentID) {
 };
 
 function editFactories(parentID) {
+
     var $childrenLowerBound = document.getElementById("rangeLowerBound" + parentID).value
     var $childrenUpperBound = document.getElementById("rangeUpperBound" + parentID).value
     var $numChildren = document.getElementById("numChildren" + parentID).value
+    //console.log($numChildren);
+    var $invalidRange = $('#invalidRange');
+    var $invalidChildren = $('#invalidChildren');
+
+    if ($numChildren !== "" && $numChildren !== NaN && $numChildren <= 15 && $numChildren >= 1) {
+        if ($childrenLowerBound !== "" && $childrenUpperBound !== "" && $childrenLowerBound <= $childrenUpperBound) {
+            socket.emit('createChildren', parentID, $childrenLowerBound, $childrenUpperBound, $numChildren);
+        } else {
+            $invalidRange.show();
+        }
+    } else {
+        $invalidChildren.show();
+    }
     // console.log($childrenLowerBound)
     // console.log($childrenUpperBound)
     // console.log($numChildren)
-    socket.emit('createChildren', parentID, $childrenLowerBound, $childrenUpperBound, $numChildren)
+    
 }
 
 $("[data-hide]").on("click", function(){
+
     $(this).closest("." + $(this).attr("data-hide")).hide();
 });

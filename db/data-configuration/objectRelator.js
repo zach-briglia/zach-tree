@@ -34,7 +34,7 @@ const objectRelator = {
 
     deleteParents: function(dbTable,columns,values,cb) {
         var query = `DELETE FROM ${dbTable} WHERE ${columns.toString()} = "${values}";`;
-        conn.query(query,values,function(error,result) {
+        conn.query(query, values, function(error,result) {
             if (error) throw error;
             cb(result);
         });
@@ -42,7 +42,7 @@ const objectRelator = {
 
     deleteChildren: function(dbTable,columns,values,cb) {
         var query = `DELETE FROM ${dbTable} WHERE ${columns.toString()} = "${values}";`;
-        conn.query(query,values,function(error,result) {
+        conn.query(query, values, function(error,result) {
             if (error) throw error;
             cb(result);
         });

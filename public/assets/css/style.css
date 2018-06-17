@@ -3,8 +3,7 @@
     color:rgb(255, 255, 255);
 }
 .searchBG {
-    background-color:#3a3a3ae8;
-    color: #ffffff;
+    color: #000000;
 }
 .submitBG {
     background-color:#3a3a3ae8; 
@@ -14,8 +13,7 @@
     background-color:rgb(15, 14, 26);
 }
 .parentBG {
-    background-color:#3a3a3ae8; 
-    color:#ffffff;
+    color:#000000;
 }
 .greyBG {
     background-color: #ffffff;
@@ -36,20 +34,4 @@ hr {
 }
 .btn-info {
     margin-right: 10px;
-}
-.modal-header, .modal-content, .modal-footer, .modal-body {
-   background-color: #3a3a3ae8;
-   color: #ffffff;
-}
-.input-group {
-    background-color: #3a3a3ae8;
-    color: #ffffff;
-}
-.form-control {
-    background-color: #3a3a3ae8;
-    color: #ffffff;
-}
-.row {
-    background-color: #3a3a3ae8;
-    color: #ffffff;
 }
