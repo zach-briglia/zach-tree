@@ -96,6 +96,11 @@ $("#addParentModal").on('click', "#parentSubmit", function()
 
 });
 
+$("#editParentNameModal").on('click', '#editParentNameButton', function() {
+    var $editParentNameModal = $(editParentNameModal);
+    $editParentNameModal.modal('hide');
+});
+
 function deleteItem(parentID){
     
     //console.log(parentID);
