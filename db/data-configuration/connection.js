@@ -5,7 +5,6 @@ var conn;
 
 function handleDisconnect() {
     conn = mySQL.createConnection(process.env.CLEARDB_DATABASE_URL);
-    conn.query()
     conn.connect(function(err) {
         if (err){
             console.log('error when connecting to db:', err);
