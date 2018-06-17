@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 
 io.on('connection',function(socket){
 
-    console.log("server connected")
+    console.log("connection made")
     socket.on('getParents',function(){
 
         Parent.selectAll(function(parentData){
@@ -168,6 +168,9 @@ io.on('connection',function(socket){
                 });
             });
         });
+    });
+    socket.on('disconnect',function(){
+        console.log('connection dropped');
     });
 });
 // Listener
