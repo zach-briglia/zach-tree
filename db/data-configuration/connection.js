@@ -4,7 +4,7 @@ const mySQL = require('mysql');
 var connection;
 
 function handleDisconnect() {
-    connection = mySQL.createConnection(db_config); 
+    connection = mySQL.createConnection(process.env.CLEARDB_DATABASE_URL); 
                                                     
 
     connection.connect(function(err) {              
