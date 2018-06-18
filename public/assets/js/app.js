@@ -1,7 +1,5 @@
 const socket = io();
 
-socket.emit("getParents");
-
 socket.on('getParents',function(result) {
 
     $parents = $('#parents');
@@ -75,6 +73,8 @@ socket.on('getParents',function(result) {
 
     $parents.append($parentRoot);
 });
+
+socket.emit("getParents");
 
 $("#addParentModal").on('click', "#parentSubmit", function() 
 {
