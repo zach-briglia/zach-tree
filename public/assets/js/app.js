@@ -126,15 +126,19 @@ function editParent(parentID) {
 
 function editFactories(parentID) {
 
-    var $childrenLowerBound = document.getElementById("rangeLowerBound" + parentID).value
-    var $childrenUpperBound = document.getElementById("rangeUpperBound" + parentID).value
-    var $numChildren = document.getElementById("numChildren" + parentID).value
+    var $childrenLowerBound = document.getElementById("rangeLowerBound" + parentID).value;
+    var $childrenUpperBound = document.getElementById("rangeUpperBound" + parentID).value;
+    var $numChildren = document.getElementById("numChildren" + parentID).value;
     //console.log($numChildren);
     var $invalidRange = $('#invalidRange');
     var $invalidChildren = $('#invalidChildren');
 
     if ($numChildren !== "" && $numChildren !== NaN && $numChildren <= 15 && $numChildren >= 1) {
-        if ($childrenLowerBound !== "" && $childrenUpperBound !== "" && $childrenLowerBound <= $childrenUpperBound) {
+        // console.log($childrenLowerBound, $childrenUpperBound)
+        // console.log($childrenLowerBound !== "")
+        // console.log($childrenUpperBound !== "")
+        // console.log($childrenLowerBound <= $childrenUpperBound)
+        if ($childrenLowerBound !== "" && $childrenUpperBound !== "" && parseInt($childrenLowerBound) <= parseInt($childrenUpperBound)) {
             socket.emit('createChildren', parentID, $childrenLowerBound, $childrenUpperBound, $numChildren);
         } else {
             $invalidRange.show();

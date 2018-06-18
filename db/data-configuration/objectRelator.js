@@ -58,7 +58,7 @@ const objectRelator = {
 
     updateFactories: function(dbTable, columnsValues, whereCondtition, cb) {
         var query = `UPDATE ${dbTable} SET ${objToSql(columnsValues)} WHERE ${whereCondtition};`
-        console.log(query)
+        //console.log(query)
         conn.query(query, function(error, result){
             if (error) throw error;
             cb(result);
@@ -68,7 +68,7 @@ const objectRelator = {
     insertFactories: function(dbTable, columns, values, cb) {
         var query = `INSERT INTO ${dbTable}(${columns.toString()}) VALUES ?;`
         conn.query(query, [values], function(error, result){
-            console.log(query);
+            //console.log(query);
             if (error) throw error;
             cb(result);
         });
